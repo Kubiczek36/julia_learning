@@ -16,7 +16,8 @@ end
 
 # ╔═╡ db4c1f10-7c37-4513-887a-2467ce673458
 begin
-	using Pkg   
+	using Pkg
+	Pkg.activate(tempdir())
 	Pkg.add.(["CSV", "DataFrames", "PlutoUI", "Shapefile", "ZipFile", "LsqFit", "Plots"])
 
 	using CSV
@@ -25,8 +26,10 @@ begin
 	using Shapefile
 	using ZipFile
 	using LsqFit
-	using Plots
 end
+
+# ╔═╡ a26b8742-6a16-445a-ae77-25a4189c0f14
+using Plots
 
 # ╔═╡ cbd9c1aa-fc37-11ea-29d9-e3361406796f
 using Dates
@@ -54,6 +57,9 @@ By the end of the notebook we will produce the following visualisation using Jul
 
 # ╔═╡ 7617d970-fce4-11ea-08ba-c7eba3e17f62
 @bind day Clock(0.5)
+
+# ╔═╡ add4799e-2a63-44bc-9609-e3a2e476b66f
+gr()
 
 # ╔═╡ e0493940-8aa7-4733-af72-cd6bc0e37d92
 md"""
@@ -98,14 +104,17 @@ We can use the `head` function to see only the first few lines of the data.
 # ╔═╡ a054e048-4fea-487c-9d06-463723c7151c
 begin
 	data_2 = rename(data, 1 => "province", 2 => "country", 3 => "latitude", 4 => "longitude")   
-	head(data_2)
+	# head(data_2)
 end
 
 # ╔═╡ e9ad97b6-fdef-4f48-bd32-634cfd2ce0e6
 begin
 	rename!(data, 1 => "province", 2 => "country", 3 => "latitude", 4 => "longitude") 
-	head(data)
+	# head(data)
 end
+
+# ╔═╡ 9b5c8aa0-2dde-4bb2-aea7-f05708a21cad
+
 
 # ╔═╡ aaa7c012-fc1f-11ea-3c6c-89630affb1db
 md"## Extracting useful information"
@@ -206,14 +215,17 @@ data[US_row, :]
 # ╔═╡ f75e1992-fcfb-11ea-1123-b59bf888eac3
 data[US_row:US_row, :]
 
+# ╔═╡ 2356ab6d-d926-43af-88dc-ac18cca992c3
+begin
+	ENV["GRDIR"]=""
+	Pkg.build("GR")
+end
+
 # ╔═╡ 67eebb7e-fc36-11ea-03ef-bd6966487bb5
 md"Now we can extract the data into a standard Julia `Vector`:"
 
 # ╔═╡ 7b5db0f4-fc36-11ea-09a5-49def64f4c79
 US_data = Vector(data[US_row, 5:end])
-
-# ╔═╡ a26b8742-6a16-445a-ae77-25a4189c0f14
-
 
 # ╔═╡ f099424c-0e22-42fb-894c-d8c2a65715fb
 scatter(US_data, m=:o, alpha=0.5, ms=3, xlabel="day", ylabel="cumulative cases", leg=false)
@@ -527,6 +539,7 @@ Unfortunately, published visualisations often hide some of  this information. Th
 # ╟─efa281da-cef9-41bc-923e-625140ce5a07
 # ╠═7617d970-fce4-11ea-08ba-c7eba3e17f62
 # ╠═b0e7f1c6-fce3-11ea-10e5-9101d0f861a2
+# ╠═add4799e-2a63-44bc-9609-e3a2e476b66f
 # ╠═f7a37706-fcdf-11ea-048a-236b8ed0f1f3
 # ╟─e0493940-8aa7-4733-af72-cd6bc0e37d92
 # ╠═64d9bcea-7c85-421d-8f1e-17ea8ee694da
@@ -540,6 +553,7 @@ Unfortunately, published visualisations often hide some of  this information. Th
 # ╟─3519cf96-fc26-11ea-3386-d97c61ea1b85
 # ╠═a054e048-4fea-487c-9d06-463723c7151c
 # ╠═e9ad97b6-fdef-4f48-bd32-634cfd2ce0e6
+# ╠═9b5c8aa0-2dde-4bb2-aea7-f05708a21cad
 # ╟─aaa7c012-fc1f-11ea-3c6c-89630affb1db
 # ╟─b0eb3918-fc1f-11ea-238b-7f5d23e424bb
 # ╠═68f76d3b-b398-459d-bf39-20bf300dcaa2
@@ -569,6 +583,7 @@ Unfortunately, published visualisations often hide some of  this information. Th
 # ╠═16a79308-fc36-11ea-16e5-e1087d7ebbda
 # ╠═a41db8ea-f0e0-461f-a298-bdcea42a67f3
 # ╠═f75e1992-fcfb-11ea-1123-b59bf888eac3
+# ╠═2356ab6d-d926-43af-88dc-ac18cca992c3
 # ╟─67eebb7e-fc36-11ea-03ef-bd6966487bb5
 # ╠═7b5db0f4-fc36-11ea-09a5-49def64f4c79
 # ╠═a26b8742-6a16-445a-ae77-25a4189c0f14

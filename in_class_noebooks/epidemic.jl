@@ -66,6 +66,9 @@ countries = unique(all_countries);
 # ╔═╡ c6eb88a7-dac3-4bc7-b353-181744424191
 @bind country Select(countries)
 
+# ╔═╡ 08853715-f7e5-4e13-9f46-046c52104b2e
+
+
 # ╔═╡ Cell order:
 # ╠═baca7d32-8567-11ed-036c-c977db587718
 # ╠═0f2a68c5-a526-4ce7-86fe-49629e14e6d8
@@ -79,3 +82,4 @@ countries = unique(all_countries);
 # ╠═40e89bb9-2028-4054-852a-eb9acad3fdef
 # ╠═b47143f8-8e79-4cf2-8019-71aaa1a14b9e
 # ╠═c6eb88a7-dac3-4bc7-b353-181744424191
+# ╠═08853715-f7e5-4e13-9f46-046c52104b2e
